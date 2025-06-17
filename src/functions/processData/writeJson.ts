@@ -17,7 +17,13 @@ async function writeJsonTableStructure(
   basePath: string
 ): Promise<boolean> {
   // Validamos que el objeto de datos tenga la estructura esperada y extraemos los metadatos.
-  if (!data || !Array.isArray(data) || !data[0] || !Array.isArray(data[0]) || !data[0][0]) {
+  if (
+    !data ||
+    !Array.isArray(data) ||
+    !data[0] ||
+    !Array.isArray(data[0]) ||
+    !data[0][0]
+  ) {
     throw new Error("La estructura de datos proporcionada no es válida.");
   }
 
@@ -25,18 +31,21 @@ async function writeJsonTableStructure(
 
   // Validamos la presencia de las propiedades esenciales 'Name' y 'Type'.
   if (typeof metadata.Name !== "string" || metadata.Name.trim() === "") {
-    throw new Error("El objeto de metadatos no contiene un 'Name' de tabla válido.");
+    throw new Error(
+      "El objeto de metadatos no contiene un 'Name' de tabla válido."
+    );
   }
   if (typeof metadata.Type !== "string" || metadata.Type.trim() === "") {
-    throw new Error("El objeto de metadatos no contiene un 'Type' de tabla válido.");
+    throw new Error(
+      "El objeto de metadatos no contiene un 'Type' de tabla válido."
+    );
   }
 
-  // Normalizamos el tipo para usarlo en el nombre de la carpeta, reemplazando espacios por guiones bajos.
-  const normalizedType = metadata.Type.replace(/\s+/g, "_");
-
-  // Construimos las rutas de la carpeta y el archivo.
-  const folderPath = `${basePath}/${normalizedType}`;
-  const filePath = `${folderPath}/${metadata.Name}.json`;
+  const { folderPath, filePath } = getOutputPathsfromTypeTable(
+    metadata.Type,
+    basePath,
+    metadata.Name
+  );
 
   try {
     // Aseguramos que el directorio exista, creándolo recursivamente si es necesario.
@@ -52,8 +61,44 @@ async function writeJsonTableStructure(
   } catch (error: unknown) {
     // Capturamos cualquier error y lanzamos uno más descriptivo.
     const errorMessage = error instanceof Error ? error.message : String(error);
-    throw new Error(`Error al escribir el archivo JSON '${filePath}': ${errorMessage}`);
+    throw new Error(
+      `Error al escribir el archivo JSON '${filePath}': ${errorMessage}`
+    );
   }
+}
+
+function getOutputPathsfromTypeTable(
+  type: string,
+  basePath: string,
+  fileName: string
+): { folderPath: string; filePath: string } {
+  // Normalizamos el tipo para usarlo en el nombre de la carpeta, reemplazando espacios por guiones bajos.
+  const normalizedType = type.replace(/\s+/g, "_");
+  let typeTable = null;
+
+  // si el tipo es una tabla de usuario lo separamos
+  if (normalizedType === "user_table") {
+    // Extraemos el primer caracter del nombre
+    const firstCharacter = fileName.charAt(0);
+    switch (firstCharacter) {
+      case "d":
+        typeTable = "data";
+        break;
+      case "h":
+        typeTable = "history";
+        break;
+      default:
+        typeTable = "other";
+    }
+  }
+
+  // Construimos las rutas de la carpeta y el archivo.
+  const folderPath = `${basePath}/${
+    typeTable ? `${typeTable}/` : ""
+  }${normalizedType}`;
+  const filePath = `${folderPath}/${fileName}.json`;
+
+  return { folderPath, filePath };
 }
 
 export { writeJsonTableStructure };
