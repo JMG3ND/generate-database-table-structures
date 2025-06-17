@@ -5,9 +5,9 @@ import { TableSchema, TableMetadata } from "../../types";
  * Escribe un objeto JavaScript en un archivo JSON, organizándolo en una estructura de carpetas
  * basada en el tipo y nombre de la tabla.
  *
- * @param data Un array de arrays que contiene el objeto a serializar. Se espera que el primer
+ * @param {TableSchema} data Un array de arrays que contiene el objeto a serializar. Se espera que el primer
  * elemento (data[0][0]) contenga las propiedades `Name` y `Type` de la tabla.
- * @param basePath La ruta base donde se crearán las carpetas y el archivo JSON.
+ * @param {string} basePath La ruta base donde se crearán las carpetas y el archivo JSON.
  * @returns Una promesa que resuelve a `true` si el archivo se escribió correctamente.
  * @throws Error si el objeto no contiene las propiedades `Name` o `Type` requeridas,
  * o si ocurre algún error durante la operación de archivo.

@@ -16,7 +16,7 @@ test("Prueba en la obtención de los nombres de tablas", async () => {
       (name) => typeof name === "string"
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
   } finally {
     expect(isArray).toBeTruthy();
     expect(itsContentIsString).toBeTruthy();

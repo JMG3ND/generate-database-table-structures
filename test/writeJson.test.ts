@@ -12,13 +12,16 @@ test("Prueba para comprobar la funcionalidad de creación de archivo json", asyn
   const outputDirectory = "outputTest/WriteJsonTest";
 
   // Obtenemos la estructura de la base de datos
-  const structure = await getTableStructure(tableName);
+  const tableStructure = await getTableStructure(tableName);
 
-  expect(structure).not.toBeUndefined();
+  expect(tableStructure).not.toBeUndefined();
 
   // Si la estructura se obtuvo y existe
-  if (structure) {
-    const centinel = await writeJsonTableStructure(structure, outputDirectory);
+  if (tableStructure) {
+    const centinel = await writeJsonTableStructure(
+      tableStructure,
+      outputDirectory
+    );
     expect(centinel).toBeTruthy();
   }
 });
