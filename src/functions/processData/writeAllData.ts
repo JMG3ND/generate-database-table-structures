@@ -18,9 +18,9 @@ async function writeAllData(path = "structures") {
       return writeJsonTableStructure(structure, path);
     });
 
-    const responses = await Promise.all(arrayPromisesWriting);
-
-    return responses.every((res) => res);
+    const booleanArray = await Promise.all(arrayPromisesWriting);
+    const validateBooleanArray = booleanArray.every((res) => res);
+    return validateBooleanArray;
   } catch (error) {
     console.error(error);
     return false;
