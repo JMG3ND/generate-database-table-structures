@@ -1,6 +1,11 @@
-import { writeAllData } from "./functions/processData/writeAllData";
-import { getTableStructure } from "./functions/getData/getStructure";
-import { getArrayTableName } from "./functions/getData/getArrayTableName";
-import { writeJsonTableStructure } from "./functions/processData/writeJson";
+import { writeAllData } from "./writers/writeAllData";
+import { getTableMetadata } from "./database/queries/getTableMetadata";
+import { getArrayTableName } from "./database/queries/getArrayTableName";
+import { writeJsonTableStructure } from "./writers/writeJsonTableStructure";
 
-export { writeAllData, getTableStructure, getArrayTableName, writeJsonTableStructure };
+export {
+  writeAllData,
+  getTableMetadata,
+  getArrayTableName,
+  writeJsonTableStructure,
+};

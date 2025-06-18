@@ -1,5 +1,5 @@
-import fs from "fs/promises";
-import { TableSchema, TableMetadata } from "../../types";
+import { TableSchema, TableMetadata } from "../types";
+import { writeJsonFile } from "./writeJsonFile";
 
 /**
  * Escribe un objeto JavaScript en un archivo JSON, organizándolo en una estructura de carpetas
@@ -41,29 +41,19 @@ async function writeJsonTableStructure(
     );
   }
 
-  const { folderPath, filePath } = getOutputPathsfromTypeTable(
+  const fileName = metadata.Name;
+  const folderPath = getOutputPathsfromTypeTable(
     metadata.Type,
     basePath,
-    metadata.Name
+    fileName
   );
 
   try {
-    // Aseguramos que el directorio exista, creándolo recursivamente si es necesario.
-    await fs.mkdir(folderPath, { recursive: true });
-
-    // Convertimos el objeto completo a una cadena JSON.
-    const jsonData = JSON.stringify(data, null, 2); // El 'null, 2' formatea el JSON para mayor legibilidad.
-
-    // Escribimos la cadena JSON en el archivo.
-    await fs.writeFile(filePath, jsonData);
-
+    await writeJsonFile(folderPath, fileName, data);
     return true;
-  } catch (error: unknown) {
-    // Capturamos cualquier error y lanzamos uno más descriptivo.
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    throw new Error(
-      `Error al escribir el archivo JSON '${filePath}': ${errorMessage}`
-    );
+  } catch (error) {
+    console.error(error);
+    return false;
   }
 }
 
@@ -71,7 +61,7 @@ function getOutputPathsfromTypeTable(
   type: string,
   basePath: string,
   fileName: string
-): { folderPath: string; filePath: string } {
+): string {
   // Normalizamos el tipo para usarlo en el nombre de la carpeta, reemplazando espacios por guiones bajos.
   const normalizedType = type.replace(/\s+/g, "_");
   let typeTable = null;
@@ -93,12 +83,11 @@ function getOutputPathsfromTypeTable(
   }
 
   // Construimos las rutas de la carpeta y el archivo.
-  const folderPath = `${basePath}/${
-    typeTable ? `${typeTable}/` : ""
-  }${normalizedType}`;
-  const filePath = `${folderPath}/${fileName}.json`;
+  const folderPath = `${basePath}/${normalizedType}${
+    typeTable ? `/${typeTable}` : ""
+  }`;
 
-  return { folderPath, filePath };
+  return folderPath;
 }
 
 export { writeJsonTableStructure };

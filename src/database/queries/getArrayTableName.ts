@@ -1,5 +1,4 @@
-import { SQL } from "service-database-connect";
-import { getQueryTableListFromDatabase } from "../../querys/getQueryTableList";
+import { runQuery } from "../controller/runQuery";
 
 export type TableList = {
   TABLE_SCHEMA: string;
@@ -12,11 +11,7 @@ export type TableList = {
  */
 async function getArrayTableName() {
   try {
-    const sql = (await SQL.getInstance()).getPool();
-
-    const response = await sql.query<TableList>(
-      getQueryTableListFromDatabase()
-    );
+    const response = await runQuery<TableList>(getQueryTableListFromDatabase());
     const { recordset } = response;
 
     const arrayTableName = recordset.map((v) => v.TABLE_NAME);
@@ -24,6 +19,15 @@ async function getArrayTableName() {
   } catch (error) {
     throw error;
   }
+}
+
+/**Esta función retorna una sentencia sql para leer todas las tablas disponibles en la base de datos actual */
+function getQueryTableListFromDatabase() {
+  return `
+	SELECT TABLE_SCHEMA, TABLE_NAME
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_CATALOG = DB_NAME(); -- Opcional: Para la base de datos actual
+	`;
 }
 
 export { getArrayTableName };
