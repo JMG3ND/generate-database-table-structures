@@ -1,5 +1,5 @@
 import { SQL } from "service-database-connect";
-import { IResult } from "service-database-connect/node_modules/@types/mssql";
+import type { IResult } from "mssql";
 
 /**Esta función ejecuta la consulta según el controlador de conexión a sql server
  * @param query - Consulta sql
