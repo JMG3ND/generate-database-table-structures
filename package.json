@@ -2,11 +2,13 @@
   "name": "generate-database-table-structures",
   "version": "1.0.0",
   "main": "./dist/index.js",
+  "bin": {
+    "gendts": "./dist/cli/generateJsonFromStructureTables.js"
+  },
   "scripts": {
     "test": "npx jest",
     "build": "tsc",
-    "dev": "npx tsc --watch",
-    "generate": "node ./dist/generate.js"
+    "dev": "npx tsc --watch"
   },
   "keywords": [],
   "author": "José Gutiérrez",
