@@ -1,3 +1,4 @@
-import { transformViewDefinition } from "./dataView/transformViewDefinition";
+import { transformViewDefinition } from "./viewDefinition/transformViewDefinition";
+import { tablesWithAliasDefinition } from "./viewDefinition/tablesWithAliasDefinition";
 
-export { transformViewDefinition };
+export { transformViewDefinition, tablesWithAliasDefinition };
