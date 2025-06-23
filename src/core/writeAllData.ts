@@ -1,4 +1,4 @@
-import { getArrayTableName, getTableMetadata } from "database";
+import { getArrayTableName, getTableMetadata } from "../database";
 import { writeJsonTableStructure } from "../writers/writeJsonTableStructure";
 import { writeJsonFile } from "../writers/writeJsonFile";
 
@@ -26,7 +26,7 @@ async function writeAllData(path = "structures") {
         return true;
       }
     });
-    
+
     if (tablesErrors.length > 0) {
       await writeJsonFile("errorlogs", "onWriteStructureError", tablesErrors);
     }

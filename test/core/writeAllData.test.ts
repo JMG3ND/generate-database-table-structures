@@ -1,4 +1,4 @@
-import { writeAllData } from "../src";
+import { writeAllData } from "../../src";
 
 test("Prueba de escritura de archivos json de toda la base de datos", async () => {
   let responseProcess = false;
