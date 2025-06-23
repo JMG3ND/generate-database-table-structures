@@ -1,15 +1,13 @@
 #!/usr/bin/env node
-import { writeAllData } from "../";
+import { writeAllData, writeGeneratedFiles } from "../";
 import { closeConnection } from "../database";
-import dotenv from "dotenv";
-dotenv.config();
+import { metadata } from "../database";
 
 async function generateJsonFromStructureTables() {
   try {
-    const isWritinData = await writeAllData(
-      process.env.DATABASE_NAME || undefined
-    );
+    const isWritinData = await writeAllData(metadata.database || undefined);
     if (!isWritinData) throw new Error("Error al escribir la data");
+    await writeGeneratedFiles();
   } catch (error) {
     console.error(error);
   } finally {
