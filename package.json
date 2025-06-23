@@ -8,7 +8,7 @@
   "scripts": {
     "test": "npx jest",
     "build": "tsc",
-    "dev": "npx tsc --watch"
+    "dev": "ts-node -r module-alias/register src/index.ts"
   },
   "keywords": [],
   "author": "José Gutiérrez",
@@ -17,6 +17,7 @@
   "description": "Genera estructuras de tablas y vistas en bases de datos",
   "dependencies": {
     "dotenv": "^16.5.0",
+    "module-alias": "^2.2.3",
     "service-database-connect": "file:../service-database-connect"
   },
   "devDependencies": {

@@ -4,6 +4,7 @@
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
+    "baseUrl": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -16,7 +17,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

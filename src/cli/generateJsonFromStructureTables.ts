@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { writeAllData } from "../writers";
+import { writeAllData } from "../";
 import { closeConnection } from "../database";
 import dotenv from "dotenv";
 dotenv.config();

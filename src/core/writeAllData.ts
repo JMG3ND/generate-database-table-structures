@@ -1,6 +1,6 @@
-import { getArrayTableName, getTableMetadata } from "../database";
-import { writeJsonTableStructure } from "./writeJsonTableStructure";
-import { writeJsonFile } from "./writeJsonFile";
+import { getArrayTableName, getTableMetadata } from "database";
+import { writeJsonTableStructure } from "../writers/writeJsonTableStructure";
+import { writeJsonFile } from "../writers/writeJsonFile";
 
 /**Función que lee la base de datos definidas en las variables de entorno y genera archivos json
  * - Los archivos son generados en la carpeta structure
@@ -26,7 +26,7 @@ async function writeAllData(path = "structures") {
         return true;
       }
     });
-
+    
     if (tablesErrors.length > 0) {
       await writeJsonFile("errorlogs", "onWriteStructureError", tablesErrors);
     }
