@@ -1,6 +1,5 @@
 import { getTableMetadata } from "./queries/getTableMetadata";
 import { getArrayTableName } from "./queries/getArrayTableName";
-import { getViewDefinition } from "./queries/getViewDefinition";
 import { runQuery } from "./controller/runQuery";
 import { closeConnection } from "./controller/closeConnection";
 
@@ -9,5 +8,4 @@ export {
   getArrayTableName,
   runQuery,
   closeConnection,
-  getViewDefinition,
 };

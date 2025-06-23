@@ -1,7 +1,7 @@
 import {
   getTableMetadata,
   getArrayTableName,
-} from "../src/database";
+} from "../../../src/database";
 
 test("Prueba de obtención de estructura de tabla", async () => {
   // Extraemos un nombre de tabla de la base de datos

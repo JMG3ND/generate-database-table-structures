@@ -1,5 +1,5 @@
-import { writeJsonTableStructure } from "../src/writers";
-import { getArrayTableName, getTableMetadata} from "../src/database";
+import { writeJsonTableStructure } from "../../src/writers";
+import { getArrayTableName, getTableMetadata} from "../../src/database";
 
 test("Prueba para comprobar la funcionalidad de creación de archivo json", async () => {
   // Definimos el nombre de la tabla

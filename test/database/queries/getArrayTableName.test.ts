@@ -1,5 +1,5 @@
-import { getArrayTableName } from "../src/database";
-import { writeJsonFile } from "../src/writers";
+import { getArrayTableName } from "../../../src/database";
+import { writeJsonFile } from "../../../src/writers";
 
 test("Prueba en la obtención de los nombres de tablas", async () => {
   let isArray = false;
